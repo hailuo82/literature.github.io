@@ -1,0 +1,60 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+body{
+	width: 1024px;
+	margin: 0 auto;
+}
+
+div.member_regist{
+	margin-top: 10px;
+	width:100%;
+}
+
+.ur_cn{
+	color: #317cca;
+	font-size: 25px;
+}
+
+.ur_en{
+	margin-left: 10px;
+	color: #d8dae2;	
+	font-size: 17px;
+}
+div.member_regist p{
+	margin-top: 10px;
+	border: 1px dashed #ccc;
+}
+div.member_regist table{
+	margin-top: 30px;
+	margin-left: 30px;	
+}
+div.member_regist table tr{
+	height: 50px;
+}
+#red_star{
+	color: red;
+}
+#td_right{
+	text-align: right;
+}
+
+#input_text{
+	height: 30px;
+	width: 300px;
+	border-radius: 3px ;
+}
+.code_text{
+	height: 30px;
+	width: 170px;
+	border-radius: 3px ;
+}
+.btn_sure{
+	height: 40px;
+	width: 170px;
+	background-color: #d3062e;
+	color: #fff;
+	border: none;
+}

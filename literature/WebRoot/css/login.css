@@ -1,0 +1,82 @@
+@charset "utf-8";
+
+/*
+ * Copyright 2005-2013 dhcc.com.cn. All rights reserved.
+ * Support: http://www.dhcc.com.cn
+ * License: http://www.dhcc.com.cn/license
+ * 
+ * Style - Login
+ * Version: 3.0
+ */
+
+/* ---------- Login ---------- */
+
+div.wrap {
+	margin: auto;
+	border: none;
+}
+
+div.main {
+	border: none;
+}
+
+div table {
+	position: absolute;
+	margin: auto;
+	width: 30%;
+	height: 50%;
+	overflow: auto;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+div th {
+	width: 90px;
+	font-weight: normal;
+	text-align: right;
+}
+
+div.main .captcha {
+	width: 130px;
+	text-transform: uppercase;
+	ime-mode: disabled;
+}
+
+div.main .captchaImage {
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+div.main .submit {
+	width: 100px;
+	height: 35px;
+	line-height: 35px;
+	color: #ffffff;
+	cursor: pointer;
+	outline: none;
+	blr: expression(this.hideFocus = true);
+	border: none;
+	background: #cd062d 0px 0px no-repeat;
+}
+
+div.register {
+	background-color: #f3f3f3;
+}
+
+div.register dt {
+	line-height: 40px;
+	color: #cc062d;
+	font-size: 18px;
+	font-family: "Microsoft YaHei";
+}
+
+div.register dd {
+	line-height: 30px;
+	color: #565656
+}
+
+div.register dd a {
+	color: #3164af
+}

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC 
+		"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+		"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 1、配置常量 -->
+	<constant name="struts.i18n.encoding" value="utf-8"></constant><!-- 编码 -->
+	<!-- 把扩展名配置为action，为了后续过滤器的拦截 -->
+<!-- 	<constant name="struts.action.extension" value="action"></constant> -->
+	
+	
+	<!-- 2、Action——JSP对应关系 -->
+	<package name="shop" namespace="/" extends="struts-default">
+	
+		<!-- 1.配置自定义拦截器 -->
+		<interceptors>
+			<interceptor name="adminInterceptor" class="net.zjitc.shop.utils.AdminInterceptor"></interceptor>
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="admin">
+				<interceptor-ref name="adminInterceptor"></interceptor-ref><!-- 自定义拦截器 -->
+				<interceptor-ref name="defaultStack"></interceptor-ref><!-- 默认拦截器 -->
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 全局返回页面，被拦截器拦截跳转的页面 -->
+		<global-results>
+			<result name="nologin">/admin/login.jsp</result>
+		</global-results>
+		
+		<!-- 后台管理员 -->
+		<action name="adminuser_*" class="adminUserAction" method="{1}">
+			<result name="loginSuccess" type="redirect">/admin/home.jsp</result>
+			<result name="loginFail">/admin/login.jsp</result>
+			<result name="findAllUser">/admin/user/list.jsp</result>
+			<result name="findAllAuthor">/admin/author/list.jsp</result>
+			<result name="findAllCategory">/admin/category/list.jsp</result>
+		</action>
+		
+		<!-- 后台一级分类 -->
+		<action name="adminCategory_*" class="adminCategoryAction" method="{1}">
+			<!-- 列表 -->
+			<result name="findAllCategory">/admin/category/list.jsp</result>
+			<!-- 增删改，重定向到列表Action -->
+			<result name="tolist" type="redirectAction">adminCategory_findAllCategory</result>
+			<!-- 添加页面 -->
+			<result name="add">/admin/category/add.jsp</result>
+			<!-- 修改页面 -->
+			<result name="edit">/admin/category/edit.jsp</result>
+			<!-- 异常转到的页面 -->
+			<result name="error">/admin/welcome.jsp</result>
+			
+			<!-- 2.设置拦截器 -->
+			<interceptor-ref name="admin"></interceptor-ref>
+		</action>
+		
+		<!-- 后台二级分类 -->
+		<action name="admincategorysecond_*" class="adminCategorySecondAction" method="{1}">
+			<result name="list">/admin/categorysecond/list.jsp</result> <!-- 列表 -->
+			<result name="addUI">/admin/categorysecond/add.jsp</result> <!-- 添加页面 -->
+			<result name="editUI">/admin/categorysecond/edit.jsp</result> <!-- 修改页面 -->
+			<result name="tolist" type="redirectAction">admincategorysecond_list?page=1</result> <!-- 增删改，重定向到列表Action -->
+			<!-- 异常转到的页面 -->
+			<result name="error">/admin/welcome.jsp</result>
+			
+			<!-- 设置拦截器 -->
+			<interceptor-ref name="admin"></interceptor-ref>
+		</action>
+		
+		<!-- 后台商品 -->
+		<action name="adminProduct_*" class="adminProductAction" method="{1}">
+			<result name="findAllProduct">/admin/product/list.jsp</result>
+			<result name="addUI">/admin/product/add.jsp</result>
+			<result name="editUI">/admin/product/edit.jsp</result>
+			<result name="tolist" type="redirectAction">adminProduct_findAllProduct?page=1</result>
+			
+			<!-- 设置拦截器 -->
+			<interceptor-ref name="admin"></interceptor-ref>
+		</action>
+		
+		<!-- 后台订单 -->
+		<action name="adminOrder_*" class="adminOrderAction" method="{1}">
+			<result name="findAllOrder">/admin/order/list_1.jsp</result> <!-- 查询所有订单 -->
+			<result name="findByState">/admin/order/list_2.jsp</result> <!-- 根据状态查询订单 -->
+			<result name="editState" type="redirectAction">adminOrder_findAllOrder</result> <!-- 根据状态查询订单 -->
+			
+			<!-- 设置拦截器 -->
+			<interceptor-ref name="admin"></interceptor-ref>
+		</action>
+		
+		
+		<!-- 前台首页 -->
+		<action name="index" class="indexAction">
+			<result name="index">/WEB-INF/jsp/index.jsp</result>
+		</action>
+		
+		<!-- 前台用户模块 -->
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="registUI">/WEB-INF/jsp/regist.jsp</result> <!-- 注册页面 -->
+			<result name="msg">/WEB-INF/jsp/msg.jsp</result> 		 <!-- 注册信息，注册、激活 -->
+			<result name="loginUI">/WEB-INF/jsp/login.jsp</result>
+			<result name="redirect" type="redirectAction">index</result>
+			<result name="forgetUI">/WEB-INF/jsp/forget.jsp</result>
+			<result name="input">/WEB-INF/jsp/regist.jsp</result>
+			
+			<result name="personUI">/WEB-INF/jsp/person.jsp</result>
+			<result name="person">/WEB-INF/jsp/person.jsp</result>
+			<result name="personSetUI">/WEB-INF/jsp/personset.jsp</result>
+			<result name="personSet" type="redirectAction">user_person</result>
+		</action>
+		
+		<!-- 配置验证码的Action -->
+		<action name="codeaction" class="validateCodeAction">
+		
+		</action>
+		
+		<!-- 前台商品模块 -->
+		<action name="product_*" class="productAction" method="{1}">
+			<result name="findByPid">/WEB-INF/jsp/product.jsp</result>
+			<result name="findByCid">/WEB-INF/jsp/productList.jsp</result>
+			<result name="findByCsid">/WEB-INF/jsp/product_secondList.jsp</result>
+			<result name="findByName">/WEB-INF/jsp/product.jsp</result>
+		</action>
+	    
+	    <!-- 前台评价模块 -->
+	    <action name="evaluate_*" class="evaluateAction" method="{1}">
+	       <result name="findByPid">/WEB-INF/jsp/addEvaluate.jsp</result>
+	       <result name="saveEval">/WEB-INF/jsp/msg.jsp</result>
+	    </action>
+	    
+	    <!-- 前台收藏模块 -->
+	    <action name="collect_*" class="collectAction" method="{1}">
+	       <result name="collection">/WEB-INF/jsp/collect.jsp</result>
+	       <result name="saveCollection">/WEB-INF/jsp/collect.jsp</result>
+	       <result name="msg">/WEB-INF/jsp/msg.jsp</result>
+	    </action>
+	</package>
+	
+</struts>    

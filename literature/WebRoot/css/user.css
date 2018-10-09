@@ -1,0 +1,220 @@
+body {
+	background: #ededed;
+	margin: 0 auto;
+}
+
+a:hover {
+	color: #04bec1;
+}
+
+.content.t4 {
+	width: 978px;
+	height: 500px;
+	overflow: hidden;
+	margin: 24px auto;
+	border-radius: 14px;
+	background: #fff;
+}
+
+.t4 .left {
+	width: 20%;
+	float: left;
+	border: 1px solid #ededed;
+}
+
+.t4 .right {
+	width: 60%;
+	margin: 35px 30px;
+	float: left;
+}
+
+/*个人资料right*/
+.space-tabbar {
+	height: 26px;
+	line-height: 26px;
+	padding-bottom: 5px;
+	margin-bottom: 15px;
+	overflow: hidden;
+}
+
+.index-content .space-tabbar {
+	height: 30px;
+	margin-bottom: 10px;
+}
+
+.space-tabbar li {
+	float: left;
+}
+
+.space-tabbar li a {
+	position: relative;
+	display: inline-block;
+	height: 26px;
+	padding: 0 14px;
+	line-height: 26px;
+	font-size: 12px;
+	color: #333;
+	background: #f2f2f2;
+}
+
+.space-tabbar li s {
+	position: absolute;
+	left: 50%;
+	bottom: -10px;
+	display: none;
+	width: 0;
+	height: 0;
+	margin-left: -5px;
+	line-height: 0;
+	border: 5px dashed transparent;
+	font-size: 0;
+	border-top-style: solid;
+	border-top-color: #04bec1;
+}
+
+.space-tabbar li a.current {
+	color: #fff;
+	background: #04bec1;
+	font-weight: bold;
+}
+
+.space-tabbar li a:hover {
+	background: #e4e4e4;
+	color: #333;
+}
+
+.space-tabbar li a.current:hover {
+	background: #04bec1;
+	color: #fff;
+}
+
+.space-tabbar li a.current s {
+	display: block;
+}
+
+/*sidebar*/
+.sidebar {
+	width: 198px;
+	margin-bottom: -10000px;
+	padding-bottom: 10000px;
+	min-height: 600px;
+	_height: expression(600 + "px");
+	border-right: 1px solid #ededed;
+}
+
+.sidebar li a {
+	height: 40px;
+	line-height: 40px;
+	padding-left: 34px;
+	border-left: 4px solid #fff;
+	color: #999;
+	font-weight: bold;
+	font-size: 14px;
+	display: block;
+}
+
+.sidebar li a.current2 {
+	height: 40px;
+	line-height: 40px;
+	padding-left: 34px;
+	border-left: 4px solid #fff;
+	color: #999;
+	font-weight: bold;
+	font-size: 14px;
+	display: block;
+}
+
+.sidebar li a i {
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 8px;
+	_margin: 10px 8px 10px 0;
+}
+
+.sidebar li a.current {
+	background: #f2f2f2;
+	padding-left: 34px;
+	border-left: 4px solid #04bec1;
+}
+
+/*个人设置*/
+.set dt {
+	float: left;
+	width: 70px;
+	padding-right: 12px;
+	margin-bottom: 12px;
+	line-height: 28px;
+	font-size: 14px;
+	color: #a2a2a2;
+	text-align: right;
+}
+
+.set dd {
+	line-height: 28px;
+	padding-left: 82px;
+	margin-bottom: 12px;
+	font-size: 14px;
+	color: #333;
+	vertical-align: middle;
+}
+
+input {
+	width: 230px;
+	height: 30px;
+	font-size: 19px;
+	border-radius: 5px;
+	background: #f2f2f2;
+}
+
+.set dd span,.set dd a,.set .btns button {
+	vertical-align: middle;
+}
+
+.set .btns button {
+	width: 60px;
+	height: 25px;
+	background: #4095D5;
+	color: #fff;
+	border-radius: 4px;
+	border: none;
+	cursor: pointer;
+	margin-top: 10px;
+	margin-left: 100px;
+}
+
+
+.checkbox {
+	height: 12px;
+	width: 40px;
+}
+
+.checkMyBook{
+    height: 12px;
+    width: 40px;
+    position: relative;
+    top: -1px;
+    -moz-top: -2px;
+}
+
+.btn-blue-s {
+	width: 60px;
+	height: 25px;
+	line-height: 25px;
+	float: right;
+	text-align: center;
+	margin-right: 40px;
+	color: #fff;
+	background: #04bec1;
+	border-radius: 4px;
+}
+
+.btn-blue-s:hover {
+	color: #fff;
+	backgroud: #4095D5;
+}
+
+.bookshelf-tale-btns {
+	margin-top: 20px;
+}

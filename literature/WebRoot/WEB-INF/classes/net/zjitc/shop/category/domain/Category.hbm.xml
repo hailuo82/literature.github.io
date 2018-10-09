@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- 配置文件：将Category.java与category表做映射 -->
+<hibernate-mapping package="net.zjitc.shop.category.domain">
+	<!-- name属性：哪个类；table属性：对应哪张表 -->
+	<class name="Category" table="category">
+		<!-- 主键 ,类型可以不写 ，自动检测 -->
+		<id name="cid">
+			<generator class="native"></generator><!-- 自动增长 -->
+		</id>
+		<!-- 其他属性 -->
+		<property name="cname"></property>
+		
+		<!-- 与二级分类的一对多关系。inverse="true"表示由二级分类一方来控制关联关系 -->
+		<!-- cascade="delete"表示在执行delete时进行级联删除 -->
+		<set name="categorySeconds" lazy="false">
+			<key column="cid"></key> <!-- 指定关联的外键列名 -->
+			<one-to-many class="net.zjitc.shop.categorysecond.domain.CategorySecond" /> <!-- 映射关联的类 -->
+		</set>
+	</class>
+</hibernate-mapping>

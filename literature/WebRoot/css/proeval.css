@@ -1,0 +1,37 @@
+@CHARSET "UTF-8";
+		.comment{
+			width: 950px;
+			height: 100px;
+		}
+		.comment_left{
+			width: 130px;
+			height: 100px;
+			float: left;
+		}
+		.comment_left img{
+			margin-left: 40px;
+			margin-top: 5px;
+		}
+		.comment_left_username{
+			display: block;
+			margin-left: 40px;
+		}
+		.comment_right{
+			width: 820px;
+			height: 100px;
+			float: left;
+		}
+		.comment_right_top{
+			width: 820px;
+			height: 20px;
+			color: #3366CC;
+		}
+		.comment_right_mid{
+			width: 820px;
+			height: 60px;
+		}
+		.comment_right_end{
+			width: 820px;
+			height: 20px;
+			color: #B0B0B0;
+		}

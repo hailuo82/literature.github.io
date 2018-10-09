@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- 配置文件：将Category.java与category表做映射 -->
+<hibernate-mapping package="net.zjitc.shop.collect.domain">
+	<!-- name属性：哪个类；table属性：对应哪张表 -->
+	<class name="CollectItem" table="usercollectitem">
+		<!-- 主键 ,类型可以不写 ，自动检测 -->
+		<id name="uciid">
+			<generator class="native"></generator><!-- 自动增长 -->
+		</id>
+		<!-- 其他属性 -->
+		
+		<!-- 与商品的多对一关系。column属性指定外键列名 -->
+		<many-to-one name="product" class="net.zjitc.shop.product.domain.Product" column="pid"></many-to-one>
+		<!-- 与收藏的多对一关系 -->
+		<many-to-one name="collect" class="net.zjitc.shop.collect.domain.Collect" column="ucid"></many-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- 配置文件：将User.java与user表做映射 -->
+<hibernate-mapping package="net.zjitc.shop.user.domain">
+	<!-- name属性：哪个类；table属性：对应哪张表 -->
+	<class name="Author" table="author">
+		<!-- 主键 ,类型可以不写 ，自动检测 -->
+		<id name="aid">
+			<generator class="native"></generator><!-- 自动增长 -->
+		</id>
+		<!-- 其他属性 -->
+		<property name="authorname"></property>
+		<property name="password"></property>
+		<property name="pen_name"></property>
+		<property name="sex"></property>
+		<property name="ID_card"></property>
+		<property name="email"></property>
+		<property name="phone"></property>
+		<property name="addr"></property>
+		
+		<!-- 与用户的一对一关系 -->
+		<one-to-one name="user" class="net.zjitc.shop.user.domain.User" lazy="false"></one-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="net.zjitc.shop.evaluate.domain">
+	<class name="Evaluate" table="evaluate">
+		<id name="eid">
+			<generator class="native"/>
+		</id>
+		<property name="content" length="1000"/>
+        <property name="title"/>
+        <property name="date"/>
+        <!-- 表示与用户多对一的关系 -->
+        <many-to-one name="user" class="net.zjitc.shop.user.domain.User" lazy="false" column="uid"></many-to-one>
+        
+        <!-- 表示与商品多对一的关系 -->
+        <many-to-one name="product" class="net.zjitc.shop.product.domain.Product" column="pid"></many-to-one>
+        
+   </class>
+</hibernate-mapping>

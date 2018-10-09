@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- 配置文件：将Category.java与category表做映射 -->
+<hibernate-mapping package="net.zjitc.shop.product.domain">
+	<!-- name属性：哪个类；table属性：对应哪张表 -->
+	<class name="Product" table="product">
+		<!-- 主键 ,类型可以不写 ，自动检测 -->
+		<id name="pid">
+			<generator class="native"></generator><!-- 自动增长 -->
+		</id>
+		<!-- 其他属性 -->
+		<property name="pname"></property>
+		<property name="author"></property>
+		<property name="shop_price"></property>
+		<property name="image"></property>
+		<property name="pdesc"></property>
+		<property name="popularity"></property>
+		<property name="is_hot"></property>
+		<property name="pdate"></property>
+		
+		<!-- 与二级分类的多对一关系。column属性指定外键列名 -->
+		<many-to-one name="categorySecond" class="net.zjitc.shop.categorysecond.domain.CategorySecond" column="csid" lazy="false"></many-to-one>
+		<!-- 与订单项一对多的关系 -->
+		<set name="orderItems" lazy="false">
+			<key column="pid"></key>
+			<one-to-many class="net.zjitc.shop.order.domain.OrderItem"/>
+		</set>
+	</class>
+</hibernate-mapping>

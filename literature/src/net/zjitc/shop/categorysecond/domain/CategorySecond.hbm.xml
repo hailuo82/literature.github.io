@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- 配置文件：将Category.java与category表做映射 -->
+<hibernate-mapping package="net.zjitc.shop.categorysecond.domain">
+	<!-- name属性：哪个类；table属性：对应哪张表 -->
+	<class name="CategorySecond" table="categorysecond">
+		<!-- 主键 ,类型可以不写 ，自动检测 -->
+		<id name="csid">
+			<generator class="native"></generator><!-- 自动增长 -->
+		</id>
+		<!-- 其他属性 -->
+		<property name="csname"></property>
+		
+		<!-- 与一级分类的多对一关系。column属性指定外键列名 -->
+		<many-to-one name="category" class="net.zjitc.shop.category.domain.Category" column="cid"></many-to-one>
+		
+		<!-- 与商品信息的一对多关系。inverse="true"表示由商品信息一方来控制关联关系 -->
+		<set name="products" lazy="false">
+			<key column="csid"></key> <!-- 指定关联的外键列名 -->
+			<one-to-many class="net.zjitc.shop.product.domain.Product" /> <!-- 映射关联的类 -->
+		</set>
+	</class>
+</hibernate-mapping>

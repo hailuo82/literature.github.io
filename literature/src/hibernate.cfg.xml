@@ -1,0 +1,31 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory name="foo">
+<!-- 配置数据库信息 -->
+		<property name="dialect">
+			org.hibernate.dialect.MySQL5InnoDBDialect
+		</property><!-- SQL方言 -->		
+		<!-- 数据库信息会在外部文件中单独配置 -->
+		<!-- 其他配置 -->
+		<property name="show_sql">true</property><!-- 将Hibernate发送给数据库的sql显示出来 -->
+		<!-- 只是根据映射文件去和数据库中的表对应起来，如果不一致，就更新表的结构 -->
+		<property name="hbm2ddl.auto">update</property>
+	
+	<!-- 导入映射文件 --><!-- 每一个映射文件都要在主映射文件中注册 -->
+	<mapping resource="net/zjitc/shop/adminuser/domain/AdminUser.hbm.xml" />
+	<mapping resource="net/zjitc/shop/user/domain/User.hbm.xml" />
+	<mapping resource="net/zjitc/shop/user/domain/Author.hbm.xml" />
+	<mapping resource="net/zjitc/shop/category/domain/Category.hbm.xml" />
+	<mapping resource="net/zjitc/shop/categorysecond/domain/CategorySecond.hbm.xml" />
+	<mapping resource="net/zjitc/shop/product/domain/Product.hbm.xml" />
+	<mapping resource="net/zjitc/shop/order/domain/Order.hbm.xml" />
+	<mapping resource="net/zjitc/shop/order/domain/OrderItem.hbm.xml" />
+	<mapping resource="net/zjitc/shop/evaluate/domain/Evaluate.hbm.xml" />
+	<mapping resource="net/zjitc/shop/collect/domain/Collect.hbm.xml" />
+	<mapping resource="net/zjitc/shop/collect/domain/CollectItem.hbm.xml" />
+	
+	</session-factory>
+</hibernate-configuration>

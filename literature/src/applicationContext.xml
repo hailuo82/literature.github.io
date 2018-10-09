@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context 
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- 自动扫描与装配bean	包括子包 -->
+	<context:component-scan base-package="net.zjitc.shop"></context:component-scan>
+
+<!-- 导入外部jdbc.properties配置文件 -->
+<context:property-placeholder location="classpath:jdbc.properties"/>
+
+<!-- 配置SessionFactory （原本Hibernate中需要根据主配置文件去生成全局唯一的SessionFactory）-->
+ <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+     <!-- 指定Hibernate主配置文件路径 -->
+     <property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+     
+     <!-- 配置c3p0数据库连接池，如果不配置的话，就用hibernate.cfg.xml里的配置 -->
+     <property name="dataSource">
+         <!-- 连接池只有 SessionFactory使用，所以就在里面定义一个匿名bean-->
+         <bean class="com.mchange.v2.c3p0.ComboPooledDataSource">
+             <!-- 数据库连接信息 (数据库连接信息不要在这里写死，写在文件里，这里读取，以后要修改就直接在jdbc.properties里)-->
+             <property name="jdbcUrl" value="${jdbcUrl}"></property>
+             <property name="driverClass" value="${driverClass}"></property>
+             <property name="user" value="${user}"></property>
+             <property name="password" value="${password}"></property>             
+             <!-- 其他配置： 连接池中保留的最大连接数、最小连接数等等-->             
+         </bean>
+     </property>     
+     <!-- 也可以不用hibernate.cfg.xml文件，把：配置Hibernate的其他属性，引入hibernate映射文件  -->       
+  </bean>
+
+ <!-- 配置声明式事务管理（采用注解方式） -->
+  <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+      <!-- 注入sessionFactory -->
+      <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  <!-- 配置注解事务 -->
+  <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+  
+  <!-- Action的配置================================================ -->
+   <!-- 管理员模块的Action -->
+  <bean id="adminUserAction" class="net.zjitc.shop.adminuser.action.AdminUserAction" scope="prototype" >
+  	 <!-- Service -->
+  	 <property name="adminUserService" ref="adminUserService"></property>
+  	 <property name="userService" ref="userService"></property>
+  </bean>
+  
+   <!-- 后台一级分类模块的Action -->
+  <bean id="adminCategoryAction" class="net.zjitc.shop.category.action.AdminCategoryAction" scope="prototype" >
+  	 <!-- Service -->
+  	 <property name="categoryService" ref="categoryService"></property>
+  </bean>
+   <!-- 后台二级分类模块的Action -->
+  <bean id="adminCategorySecondAction" class="net.zjitc.shop.categorysecond.action.AdminCategorySecondAction" scope="prototype">
+  	 <!-- Service -->
+  	 <property name="categorySecondService" ref="categorySecondService"></property>
+  	 <property name="categoryService" ref="categoryService"></property>
+  </bean>
+  
+   <!-- 后台商品模块的Action -->
+  <bean id="adminProductAction" class="net.zjitc.shop.product.action.AdminProductAction" scope="prototype">
+  	 <!-- Service -->
+  	 <property name="productService" ref="productService"></property>
+  	 <property name="categorySecondService" ref="categorySecondService"></property>
+  </bean>
+  
+   <!-- 后台订单模块的Action -->
+  <bean id="adminOrderAction" class="net.zjitc.shop.order.action.AdminOrderAction" scope="prototype">
+  	<!-- Service -->
+  	<property name="orderService" ref="orderService"></property>
+  </bean>
+  
+   <!-- 前台首页的Action -->
+  <bean id="indexAction" class="net.zjitc.shop.index.IndexAction">
+  	 <!-- Service -->
+  	 <property name="categoryService" ref="categoryService"></property>
+  	 <property name="productService" ref="productService"></property>
+  </bean>
+  
+   <!-- 前台用户Action -->
+  <bean id="userAction" class="net.zjitc.shop.user.action.UserAction" scope="prototype">
+  	 <!-- Service -->
+  	 <property name="userService" ref="userService"></property>
+  </bean>
+  
+   <!-- 验证码Action -->
+  <bean id="validateCodeAction" class="net.zjitc.shop.utils.ValidateCodeAction" scope="prototype">
+  </bean>
+  
+   <!--前台商品Action -->
+   <bean id="productAction" class="net.zjitc.shop.product.action.ProductAction" scope="prototype">
+      <!-- Service -->
+      <property name="productService" ref="productService"></property>
+  	 <property name="categorySecondService" ref="categorySecondService"></property>
+   </bean>
+   
+    <!--前台评价Action -->
+   <bean id="evaluateAction" class="net.zjitc.shop.evaluate.action.EvaluateAction" scope="prototype">
+      <!-- Service -->
+      <property name="evaluateService" ref="evaluateService"></property>
+      <property name="productService" ref="productService"></property>
+   </bean>
+   
+    <!--前台收藏Action -->
+   <bean id="collectAction" class="net.zjitc.shop.collect.action.CollectAction" scope="prototype">
+      <!-- Service -->
+      <property name="collectService" ref="collectService"></property>
+      <property name="userService" ref="userService"></property>
+      <property name="productService" ref="productService"></property>
+   </bean>
+  
+  
+  <!-- service的配置=============================================== -->
+   <!-- 管理员模块的service -->
+  <bean id="adminUserService" class="net.zjitc.shop.adminuser.service.AdminUserService" >
+     <!-- 注入Dao -->
+     <property name="adminUserDao" ref="adminUserDao"></property>
+  </bean>
+  
+   <!-- 用户模块的service -->
+  <bean id="userService" class="net.zjitc.shop.user.service.UserService" >
+     <!-- 注入Dao -->
+     <property name="userDao" ref="userDao"></property>
+  </bean>
+  
+   <!-- 后台一级分类模块的service -->
+  <bean id="categoryService" class="net.zjitc.shop.category.service.CategoryService" >
+     <!-- 注入Dao -->
+     <property name="categoryDao" ref="categoryDao"></property>
+     <property name="categorySecondDao" ref="categorySecondDao"></property>
+  </bean>
+   <!-- 后台二级分类模块的service -->
+  <bean id="categorySecondService" class="net.zjitc.shop.categorysecond.service.CategorySecondService" >
+     <!-- 注入Dao -->
+     <property name="categorySecondDao" ref="categorySecondDao"></property>
+     <property name="productDao" ref="productDao"></property>
+  </bean>
+  
+   <!-- 后台商品模块的service -->
+  <bean id="productService" class="net.zjitc.shop.product.service.ProductService" >
+     <!-- 注入Dao -->
+     <property name="productDao" ref="productDao"></property>
+  </bean>
+  
+   <!-- 后台订单模块的service -->
+  <bean id="orderService" class="net.zjitc.shop.order.service.OrderService">
+  	 <!-- 注入Dao -->
+  	 <property name="orderDao" ref="orderDao"></property>
+  </bean>
+  
+   <!-- 前台评价模块的service -->
+   <bean id="evaluateService" class="net.zjitc.shop.evaluate.service.EvaluateService">
+      <!--注入Dao  -->
+      <property name="evaluateDao" ref="evaluateDao"></property>
+   </bean>
+  
+   <!-- 前台收藏模块的service -->
+   <bean id="collectService" class="net.zjitc.shop.collect.service.CollectService">
+      <!--注入Dao  -->
+      <property name="collectDao" ref="collectDao"></property>
+   </bean>
+  
+  
+  <!-- dao的配置=============================================== -->
+   <!-- 管理员模块的dao -->
+  <bean id="adminUserDao" class="net.zjitc.shop.adminuser.dao.AdminUserDao" >
+     <!-- 使用HibernateDaoSupport，需要注入sessionFactory -->
+     <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  
+   <!-- 用户模块的dao -->
+  <bean id="userDao" class="net.zjitc.shop.user.dao.UserDao" >
+     <!-- 使用HibernateDaoSupport，需要注入sessionFactory -->
+     <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  
+   <!-- 后台一级分类模块的dao -->
+  <bean id="categoryDao" class="net.zjitc.shop.category.dao.CategoryDao" >
+     <!-- 使用HibernateDaoSupport，需要注入sessionFactory -->
+     <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+   <!-- 后台二级分类模块的dao -->
+  <bean id="categorySecondDao" class="net.zjitc.shop.categorysecond.dao.CategorySecondDao" >
+     <!-- 使用HibernateDaoSupport，需要注入sessionFactory -->
+     <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  
+   <!-- 后台商品模块的dao -->
+  <bean id="productDao" class="net.zjitc.shop.product.dao.ProductDao" >
+     <!-- 使用HibernateDaoSupport，需要注入sessionFactory -->
+     <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  
+   <!-- 后台订单模块的dao -->
+  <bean id="orderDao" class="net.zjitc.shop.order.dao.OrderDao">
+  	 <!-- 使用HibernateDaoSupport，需要注入sessionFactory -->
+  	 <property name="sessionFactory" ref="sessionFactory"></property>
+  </bean>
+  
+   <!-- 前台评价模块的dao -->
+   <bean id="evaluateDao" class="net.zjitc.shop.evaluate.dao.EvaluateDao">
+      <!-- 使用HibernateDaoSupport，需要注入sessionFactory -->
+      <property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+  
+   <!-- 前台收藏模块的dao -->
+   <bean id="collectDao" class="net.zjitc.shop.collect.dao.CollectDao">
+      <!-- 使用HibernateDaoSupport，需要注入sessionFactory -->
+      <property name="sessionFactory" ref="sessionFactory"></property>
+   </bean>
+
+</beans>

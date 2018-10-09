@@ -1,0 +1,85 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+body{
+	width: 1024px;
+	margin: 0 auto;
+}
+a{
+	text-decoration: none;
+	color: #666666;
+}
+div.top_left{
+	width: 65%;
+	height:60px;
+	float: left;
+	background:url(../images/seven.png) no-repeat;
+}
+div.top_right{
+	width: 35%;
+	height:60px;
+	float: left;
+}
+div.top_right ul{
+	margin: 5px 5px 0 0;
+	list-style: none;
+	float: right;
+	height: 12px;
+}
+div.top_right ul li{
+	list-style: none;
+	float: left;
+	line-height: 12px;
+	font-size: 12px;
+
+}
+#li_b{
+	margin-right:10px;
+	padding-right:10px;
+	border-right: 1px solid #000;
+}
+span.buy_car{
+	margin-left: 50px;
+	height: 40px;
+	background:url(../images/buy_car.png) no-repeat;
+}
+span.buy_car a{
+	padding-left: 25px;
+	line-height: 40px;
+	font-size: 13px;
+}
+span.img_phone{
+	margin-top: 5px;
+	float: right;
+}
+
+div.menu{
+	height: 50px;
+	background-color: #333333;
+	clear: both;
+}
+div.menu ul{
+	list-style: none;
+	height: 50px;
+
+}
+div.menu ul li{
+	list-style: none;
+	float: left;
+	width: 128px;
+	line-height: 50px;
+	font-size: 15px;
+	text-align: center;
+}
+div.menu ul li a{
+	color: #fff;
+}
+div.menu ul li a:hover{
+	background: url(../images/texture.png) repeat-x;
+	/*background-color: #fff;*/
+	display: block;
+	font-weight: bold;
+	color: #5f0909;
+}
+

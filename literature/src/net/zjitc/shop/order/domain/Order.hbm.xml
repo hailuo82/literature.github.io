@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- 配置文件：将Category.java与category表做映射 -->
+<hibernate-mapping package="net.zjitc.shop.order.domain">
+	<!-- name属性：哪个类；table属性：对应哪张表 -->
+	<class name="Order" table="orders">
+		<!-- 主键 ,类型可以不写 ，自动检测 -->
+		<id name="oid">
+			<generator class="uuid"></generator><!-- 自动生成一串唯一的... -->
+		</id>
+		<!-- 其他属性 -->
+		<property name="total" type="double"></property>
+		<property name="ordertime"></property>
+		<property name="state"></property>
+		<property name="name"></property>
+		<property name="phone"></property>
+		
+		<!-- 与订单项一对多的关系 -->
+		<set name="orderItems">
+			<key column="oid"></key>
+			<one-to-many class="net.zjitc.shop.order.domain.OrderItem"/>
+		</set>
+		<!-- 与用户的多对一关系。column属性指定外键列名 -->
+		<many-to-one name="user" class="net.zjitc.shop.user.domain.User" column="uid"></many-to-one>
+	</class>
+</hibernate-mapping>
